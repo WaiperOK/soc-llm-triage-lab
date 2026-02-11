@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from .api import run as run_api
 from .evaluator import EvalCase, evaluate
 from .models import Incident, Playbook
 from .triage import triage_incident
@@ -108,6 +109,11 @@ def main(argv: list[str] | None = None) -> int:
     p_eval.add_argument("--dataset", required=True, help="Path to evaluation JSON dataset")
     p_eval.add_argument("--playbooks", required=False)
     p_eval.set_defaults(func=cmd_eval)
+
+    p_serve = sub.add_parser("serve", help="Run HTTP API service")
+    p_serve.add_argument("--host", default="0.0.0.0")
+    p_serve.add_argument("--port", type=int, default=8082)
+    p_serve.set_defaults(func=lambda ns: run_api(host=ns.host, port=ns.port) or 0)
 
     ns = parser.parse_args(argv)
     return int(ns.func(ns))

@@ -1,0 +1,8 @@
+{
+  "title": "Ransomware plus credential theft",
+  "description": "EDR detected ransomware behavior, command-and-control callbacks and credential abuse",
+  "source": "edr",
+  "asset_criticality": 5,
+  "internet_exposed": true,
+  "tags": ["ransomware", "identity"]
+}
