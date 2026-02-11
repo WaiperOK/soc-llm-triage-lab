@@ -1,5 +1,8 @@
 # soc-llm-triage-lab
 
+[![CI](https://github.com/WaiperOK/soc-llm-triage-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/WaiperOK/soc-llm-triage-lab/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/WaiperOK/soc-llm-triage-lab)](https://github.com/WaiperOK/soc-llm-triage-lab/releases)
+
 SOC LLM copilot lab for deterministic incident triage, playbook retrieval, explainable scoring, and operational telemetry.
 
 ## Why this anchor matters
