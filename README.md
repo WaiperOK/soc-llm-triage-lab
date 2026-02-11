@@ -16,14 +16,14 @@ This repository demonstrates a practical SOC triage control loop that hiring tea
 
 ```mermaid
 flowchart LR
-  SIEM[SIEM / EDR / Identity Alerts] --> API[/v1/triage API]
-  CLI[CLI batch/eval] --> Engine[Triage Engine]
+  SIEM["SIEM / EDR / Identity Alerts"] --> API["/v1/triage API"]
+  CLI["CLI batch/eval"] --> Engine["Triage Engine"]
   API --> Engine
-  Engine --> Score[Risk Scoring]
-  Engine --> Retrieval[Playbook Retrieval]
-  Engine --> Explain[Reasoning Builder]
-  Engine --> Metrics[Telemetry Counters]
-  Metrics --> Prom[Prometheus]
+  Engine --> Score["Risk Scoring"]
+  Engine --> Retrieval["Playbook Retrieval"]
+  Engine --> Explain["Reasoning Builder"]
+  Engine --> Metrics["Telemetry Counters"]
+  Metrics --> Prom["Prometheus"]
 ```
 
 See detailed docs in `/docs/ARCHITECTURE.md`.
