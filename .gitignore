@@ -1,0 +1,19 @@
+# generic
+.DS_Store
+.idea/
+.vscode/
+
+# python
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+
+# go
+bin/
+
+# rust
+target/
