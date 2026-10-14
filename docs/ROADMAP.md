@@ -11,8 +11,8 @@
 
 ## v0.3.0
 
-- [ ] optional LLM summarizer backend
-- [ ] policy guardrails for analyst response format
+- [x] optional LLM summarizer backend (Ollama, OpenAI-compatible)
+- [x] policy guardrails for analyst response format
 - [ ] persistent event store
 - [ ] OpenTelemetry traces
 

@@ -56,6 +56,9 @@ class TriageResult:
     top_candidates: tuple[str, ...]
     analyst_summary: str
     reasoning: tuple[str, ...]
+    llm_summary: str | None = None
+    summary_source: str = "deterministic"
+    llm_fallback_reason: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         payload = asdict(self)

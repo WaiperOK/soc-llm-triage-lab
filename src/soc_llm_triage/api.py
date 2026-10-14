@@ -7,6 +7,7 @@ from typing import Any
 
 from .models import Incident, Playbook
 from .service import TriageService
+from .summarizer import LLMSummarizer
 
 
 DEFAULT_PLAYBOOKS = [
@@ -28,8 +29,13 @@ DEFAULT_PLAYBOOKS = [
 ]
 
 
-def make_server(host: str, port: int, playbooks: list[Playbook] | None = None) -> ThreadingHTTPServer:
-    service = TriageService(playbooks or list(DEFAULT_PLAYBOOKS))
+def make_server(
+    host: str,
+    port: int,
+    playbooks: list[Playbook] | None = None,
+    summarizer: LLMSummarizer | None = None,
+) -> ThreadingHTTPServer:
+    service = TriageService(playbooks or list(DEFAULT_PLAYBOOKS), summarizer=summarizer)
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self) -> None:  # noqa: N802
@@ -89,8 +95,8 @@ def make_server(host: str, port: int, playbooks: list[Playbook] | None = None) -
     return ThreadingHTTPServer((host, port), Handler)
 
 
-def run(host: str = "0.0.0.0", port: int = 8082) -> None:
-    server = make_server(host, port)
+def run(host: str = "0.0.0.0", port: int = 8082, summarizer: LLMSummarizer | None = None) -> None:
+    server = make_server(host, port, summarizer=summarizer)
     print(f"soc-llm-triage-lab api listening on http://{host}:{port}")
     try:
         server.serve_forever()

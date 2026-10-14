@@ -27,18 +27,26 @@ Provide deterministic and explainable SOC triage behavior while remaining fully 
 7. `api.py`
 - HTTP control surface: `/v1/triage`, `/healthz`, `/metrics`
 
+8. `llm.py`
+- optional provider interface with Ollama and OpenAI-compatible backends (stdlib HTTP, http/https only, bounded response size)
+
+9. `summarizer.py`
+- optional analyst summary: input sanitizing, untrusted-data prompt layout, output policy, fail-closed fallback
+
 ## Request lifecycle
 
 1. Parse incident payload.
 2. Normalize into `Incident` model.
 3. Compute risk score and severity.
 4. Rank playbooks and select best candidate.
-5. Produce summary and reasoning.
-6. Update telemetry counters.
-7. Return structured JSON result.
+5. Produce the deterministic summary and reasoning.
+6. Optionally request an LLM summary. It is validated against the output policy and replaced by the deterministic result on any failure. It cannot change severity, score or playbook.
+7. Update telemetry counters.
+8. Return structured JSON result.
 
 ## Operational notes
 
 - Metrics are exported in Prometheus text format.
 - Container stack includes API + Prometheus.
-- No external LLM or secret dependency required for local demo reliability.
+- The LLM summarizer is off by default. Without it there is no external dependency and no secret.
+- LLM calls add latency to each request (default timeout 30 seconds). Run with a local model or a short timeout for high-volume ingestion.
